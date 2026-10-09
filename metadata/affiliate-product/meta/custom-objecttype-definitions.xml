@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="AffiliateProfile">
+        <display-name xml:lang="x-default">Affiliate profile</display-name>
+        <description xml:lang="x-default">One affiliate identity, keyed by its public affiliate code.</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="key">
+            <display-name xml:lang="x-default">Affiliate code</display-name>
+            <type>string</type>
+            <min-length>1</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="customerNo">
+                <display-name xml:lang="x-default">Customer number</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="status">
+                <display-name xml:lang="x-default">Status (ACTIVE, SUSPENDED, ROTATED)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="totalClicks">
+                <display-name xml:lang="x-default">Unique referral clicks</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="totalOrders">
+                <display-name xml:lang="x-default">Attributed orders</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="totalDeliveredOrders">
+                <display-name xml:lang="x-default">Delivered attributed orders</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="totalRewards">
+                <display-name xml:lang="x-default">Rewards issued</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="lastActivityAt">
+                <display-name xml:lang="x-default">Last activity</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateProfile">
+                <display-name xml:lang="x-default">Affiliate profile</display-name>
+                <attribute attribute-id="customerNo"/>
+                <attribute attribute-id="status"/>
+                <attribute attribute-id="totalClicks"/>
+                <attribute attribute-id="totalOrders"/>
+                <attribute attribute-id="totalDeliveredOrders"/>
+                <attribute attribute-id="totalRewards"/>
+                <attribute attribute-id="lastActivityAt"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+    <custom-type type-id="AffiliateCustomerIndex">
+        <display-name xml:lang="x-default">Affiliate customer index</display-name>
+        <description xml:lang="x-default">Enforces one affiliate identity per customer number.</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="key">
+            <display-name xml:lang="x-default">Customer number</display-name>
+            <type>string</type>
+            <min-length>1</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="affiliateCode">
+                <display-name xml:lang="x-default">Affiliate code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateCustomerIndex">
+                <display-name xml:lang="x-default">Affiliate customer index</display-name>
+                <attribute attribute-id="affiliateCode"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+    <custom-type type-id="AffiliateOrder">
+        <display-name xml:lang="x-default">Affiliate order</display-name>
+        <description xml:lang="x-default">Order-level attribution snapshot and reward state, keyed by order number.</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="key">
+            <display-name xml:lang="x-default">Order number</display-name>
+            <type>string</type>
+            <min-length>1</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="affiliateCode">
+                <display-name xml:lang="x-default">Affiliate code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="referrerCustomerNo">
+                <display-name xml:lang="x-default">Referrer customer number</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="buyerCustomerNo">
+                <display-name xml:lang="x-default">Buyer customer number (empty for guests)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="attributionSource">
+                <display-name xml:lang="x-default">Attribution source (LINK, CHECKOUT)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="rewardStatus">
+                <display-name xml:lang="x-default">Reward status (PENDING, ISSUED, CANCELLED, INELIGIBLE, REVIEW)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="reviewReason">
+                <display-name xml:lang="x-default">Review or ineligibility reason</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="eligibleProductCount">
+                <display-name xml:lang="x-default">Eligible product quantity</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="eligibleOrderValue">
+                <display-name xml:lang="x-default">Eligible order value</display-name>
+                <type>double</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="currency">
+                <display-name xml:lang="x-default">Currency</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="deliveredAt">
+                <display-name xml:lang="x-default">Delivery first observed</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="rewardIssuedAt">
+                <display-name xml:lang="x-default">Reward issued</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateOrder">
+                <display-name xml:lang="x-default">Affiliate order</display-name>
+                <attribute attribute-id="affiliateCode"/>
+                <attribute attribute-id="referrerCustomerNo"/>
+                <attribute attribute-id="buyerCustomerNo"/>
+                <attribute attribute-id="attributionSource"/>
+                <attribute attribute-id="rewardStatus"/>
+                <attribute attribute-id="reviewReason"/>
+                <attribute attribute-id="eligibleProductCount"/>
+                <attribute attribute-id="eligibleOrderValue"/>
+                <attribute attribute-id="currency"/>
+                <attribute attribute-id="deliveredAt"/>
+                <attribute attribute-id="rewardIssuedAt"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+    <custom-type type-id="AffiliateReward">
+        <display-name xml:lang="x-default">Affiliate reward</display-name>
+        <description xml:lang="x-default">Reward voucher lifecycle; the key orderNo:policyVersion makes issuance idempotent.</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="key">
+            <display-name xml:lang="x-default">Order number:policy version</display-name>
+            <type>string</type>
+            <min-length>1</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="affiliateCode">
+                <display-name xml:lang="x-default">Affiliate code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="sourceOrderNo">
+                <display-name xml:lang="x-default">Source order number</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="rewardCustomerNo">
+                <display-name xml:lang="x-default">Reward owner customer number</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="couponCode">
+                <display-name xml:lang="x-default">Coupon code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="discountPercentage">
+                <display-name xml:lang="x-default">Discount percentage</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="status">
+                <display-name xml:lang="x-default">Status (ISSUED, REDEEMED, EXPIRED, REVOKED)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="issuedAt">
+                <display-name xml:lang="x-default">Issued</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="expiresAt">
+                <display-name xml:lang="x-default">Expires</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="redeemedOrderNo">
+                <display-name xml:lang="x-default">Redeemed in order</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="emailSentAt">
+                <display-name xml:lang="x-default">Reward email sent</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="reminderSentAt">
+                <display-name xml:lang="x-default">Expiry reminder sent</display-name>
+                <type>datetime</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateReward">
+                <display-name xml:lang="x-default">Affiliate reward</display-name>
+                <attribute attribute-id="affiliateCode"/>
+                <attribute attribute-id="sourceOrderNo"/>
+                <attribute attribute-id="rewardCustomerNo"/>
+                <attribute attribute-id="couponCode"/>
+                <attribute attribute-id="discountPercentage"/>
+                <attribute attribute-id="status"/>
+                <attribute attribute-id="issuedAt"/>
+                <attribute attribute-id="expiresAt"/>
+                <attribute attribute-id="redeemedOrderNo"/>
+                <attribute attribute-id="emailSentAt"/>
+                <attribute attribute-id="reminderSentAt"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+    <custom-type type-id="AffiliateDailyStats">
+        <display-name xml:lang="x-default">Affiliate daily stats</display-name>
+        <description xml:lang="x-default">Daily counters per affiliate for the dashboard chart.</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <retention-days>400</retention-days>
+        <key-definition attribute-id="key">
+            <display-name xml:lang="x-default">Affiliate code:YYYY-MM-DD</display-name>
+            <type>string</type>
+            <min-length>1</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="affiliateCode">
+                <display-name xml:lang="x-default">Affiliate code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="day">
+                <display-name xml:lang="x-default">Day (YYYY-MM-DD)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="clicks">
+                <display-name xml:lang="x-default">Unique clicks</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="orders">
+                <display-name xml:lang="x-default">Attributed orders</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="deliveredOrders">
+                <display-name xml:lang="x-default">Delivered orders</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateDailyStats">
+                <display-name xml:lang="x-default">Affiliate daily stats</display-name>
+                <attribute attribute-id="affiliateCode"/>
+                <attribute attribute-id="day"/>
+                <attribute attribute-id="clicks"/>
+                <attribute attribute-id="orders"/>
+                <attribute attribute-id="deliveredOrders"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+</metadata>

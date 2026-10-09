@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
+    <job job-id="AffiliateProduct-ProcessRewards" priority="0"><description>Issue affiliate reward vouchers; schedule every 30 minutes after configuration.</description><parameters/><flow><context site-id="RefArch"/><step step-id="ProcessRewards" type="custom.AffiliateProduct.ProcessRewards" enforce-restart="false"><parameters/></step></flow><rules/><triggers/></job>
+    <job job-id="AffiliateProduct-MaintainRewards" priority="0"><description>Expire, revoke and remind affiliate reward vouchers; schedule daily after configuration.</description><parameters/><flow><context site-id="RefArch"/><step step-id="MaintainRewards" type="custom.AffiliateProduct.MaintainRewards" enforce-restart="false"><parameters/></step></flow><rules/><triggers/></job>
+</jobs>
