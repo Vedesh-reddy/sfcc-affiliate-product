@@ -1,0 +1,142 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/affiliate.js');
+    </isscript>
+
+    <div class="container py-4">
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+        <h1 class="h2">${Resource.msg('dashboard.title', 'affiliate', null)}</h1>
+
+        <isif condition="${pdict.status === 'SUSPENDED'}">
+            <p class="alert alert-warning" role="alert">${Resource.msg('dashboard.suspended', 'affiliate', null)}</p>
+        </isif>
+
+        <section class="mb-4" aria-labelledby="affiliate-overview">
+            <h2 id="affiliate-overview" class="h4">${Resource.msg('dashboard.overview', 'affiliate', null)}</h2>
+            <div class="row">
+                <div class="col-6 col-md-3 mb-3"><div class="card h-100"><div class="card-body">
+                    <p class="h2 font-weight-bold fw-bold mb-0">${pdict.totals.clicks}</p><p class="small mb-0">${Resource.msg('dashboard.clicks', 'affiliate', null)}</p>
+                </div></div></div>
+                <div class="col-6 col-md-3 mb-3"><div class="card h-100"><div class="card-body">
+                    <p class="h2 font-weight-bold fw-bold mb-0">${pdict.totals.orders}</p><p class="small mb-0">${Resource.msg('dashboard.orders', 'affiliate', null)}</p>
+                </div></div></div>
+                <div class="col-6 col-md-3 mb-3"><div class="card h-100"><div class="card-body">
+                    <p class="h2 font-weight-bold fw-bold mb-0">${pdict.totals.delivered}</p><p class="small mb-0">${Resource.msg('dashboard.delivered', 'affiliate', null)}</p>
+                </div></div></div>
+                <div class="col-6 col-md-3 mb-3"><div class="card h-100"><div class="card-body">
+                    <p class="h2 font-weight-bold fw-bold mb-0">${pdict.totals.available}</p><p class="small mb-0">${Resource.msg('dashboard.available', 'affiliate', null)}</p>
+                </div></div></div>
+            </div>
+        </section>
+
+        <section class="card mb-4">
+            <div class="card-body">
+                <p class="text-uppercase small font-weight-bold fw-bold mb-1">${Resource.msg('code.label', 'affiliate', null)}</p>
+                <div class="d-flex flex-wrap align-items-center">
+                    <p id="affiliate-code" class="text-monospace font-monospace h3 font-weight-bold fw-bold mb-0 mr-3 me-3">${pdict.code}</p>
+                    <button type="button" class="btn btn-outline-primary btn-sm mr-3 me-3" data-affiliate-copy="affiliate-code" data-done="${Resource.msg('copy.done', 'affiliate', null)}" data-failed="${Resource.msg('copy.failed', 'affiliate', null)}">${Resource.msg('copy', 'affiliate', null)}</button>
+                    <span class="affiliate-copy-status small" role="status" aria-live="polite"></span>
+                </div>
+                <p class="small text-muted mt-2 mb-0">${Resource.msg('landing.step.share.text', 'affiliate', null)}</p>
+            </div>
+        </section>
+
+        <section class="mb-4" aria-labelledby="affiliate-performance">
+            <h2 id="affiliate-performance" class="h4">${Resource.msg('dashboard.performance', 'affiliate', null)}</h2>
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">${Resource.msg('dashboard.month', 'affiliate', null)}</th>
+                            <th scope="col" class="w-50">${Resource.msg('dashboard.clicks', 'affiliate', null)}</th>
+                            <th scope="col">${Resource.msg('dashboard.orders', 'affiliate', null)}</th>
+                            <th scope="col">${Resource.msg('dashboard.delivered', 'affiliate', null)}</th>
+                            <th scope="col">${Resource.msg('dashboard.conversion', 'affiliate', null)}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <isloop items="${pdict.months}" var="month">
+                            <tr>
+                                <th scope="row">${month.month}</th>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="progress flex-grow-1 mr-2 me-2" aria-hidden="true">
+                                            <div class="progress-bar" style="width: ${month.width}%"></div>
+                                        </div>
+                                        <span>${month.clicks}</span>
+                                    </div>
+                                </td>
+                                <td>${month.orders}</td>
+                                <td>${month.delivered}</td>
+                                <td>${month.conversion}%</td>
+                            </tr>
+                        </isloop>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mb-4" aria-labelledby="affiliate-orders">
+            <h2 id="affiliate-orders" class="h4">${Resource.msg('dashboard.referral.orders', 'affiliate', null)}</h2>
+            <isif condition="${pdict.orders.length > 0}">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">${Resource.msg('dashboard.order', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.date', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.value', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.status', 'affiliate', null)}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <isloop items="${pdict.orders}" var="order">
+                                <tr>
+                                    <td class="text-monospace font-monospace">${order.reference}</td>
+                                    <td>${order.date}</td>
+                                    <td>${order.value}</td>
+                                    <td>${Resource.msg('order.status.' + order.status, 'affiliate', order.status)}</td>
+                                </tr>
+                            </isloop>
+                        </tbody>
+                    </table>
+                </div>
+            <iselse/>
+                <p>${Resource.msg('dashboard.empty.orders', 'affiliate', null)}</p>
+            </isif>
+        </section>
+
+        <section class="mb-4" aria-labelledby="affiliate-rewards">
+            <h2 id="affiliate-rewards" class="h4">${Resource.msg('dashboard.rewards', 'affiliate', null)}</h2>
+            <isif condition="${pdict.rewards.length > 0}">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">${Resource.msg('dashboard.voucher', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.discount', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.issued', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.expires', 'affiliate', null)}</th>
+                                <th scope="col">${Resource.msg('dashboard.status', 'affiliate', null)}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <isloop items="${pdict.rewards}" var="reward">
+                                <tr>
+                                    <td class="text-monospace font-monospace">${reward.couponCode}</td>
+                                    <td>${reward.percent}%</td>
+                                    <td>${reward.issuedAt}</td>
+                                    <td>${reward.expiresAt}</td>
+                                    <td>${Resource.msg('status.' + reward.status, 'affiliate', reward.status)}</td>
+                                </tr>
+                            </isloop>
+                        </tbody>
+                    </table>
+                </div>
+            <iselse/>
+                <p>${Resource.msg('dashboard.empty.rewards', 'affiliate', null)}</p>
+            </isif>
+        </section>
+    </div>
+</isdecorate>
