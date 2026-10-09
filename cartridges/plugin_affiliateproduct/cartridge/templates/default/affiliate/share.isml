@@ -1,0 +1,16 @@
+<isif condition="${pdict.referred}">
+    <p class="affiliate-referred small text-muted mb-2">${Resource.msg('share.referred', 'affiliate', null)}</p>
+</isif>
+<isif condition="${!!pdict.shareUrl}">
+    <div class="affiliate-share mt-2">
+        <p class="small font-weight-bold fw-bold mb-1">
+            ${Resource.msg('share.title', 'affiliate', null)}
+            <span class="badge badge-success bg-success">${Resource.msg('share.eligible', 'affiliate', null)}</span>
+        </p>
+        <div class="input-group input-group-sm">
+            <input id="affiliate-share-url-${pdict.pid}" class="form-control" type="text" readonly value="${pdict.shareUrl}" aria-label="${Resource.msg('share.url.label', 'affiliate', null)}"/>
+            <button type="button" class="btn btn-outline-primary" data-affiliate-copy="affiliate-share-url-${pdict.pid}" data-done="${Resource.msg('copy.done', 'affiliate', null)}" data-failed="${Resource.msg('copy.failed', 'affiliate', null)}">${Resource.msg('copy.link', 'affiliate', null)}</button>
+        </div>
+        <span class="affiliate-copy-status small" role="status" aria-live="polite"></span>
+    </div>
+</isif>
