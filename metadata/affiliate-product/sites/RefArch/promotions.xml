@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<promotions xmlns="http://www.demandware.com/xml/impex/promotion/2008-01-31">
+    <campaign campaign-id="affiliate-rewards">
+        <description>AffiliateX reward vouchers</description>
+        <enabled-flag>true</enabled-flag>
+        <customer-groups match-mode="any">
+            <customer-group group-id="Everyone"/>
+        </customer-groups>
+    </campaign>
+    <promotion promotion-id="affiliate-reward-10">
+        <enabled-flag>true</enabled-flag>
+        <archived-flag>false</archived-flag>
+        <searchable-flag>false</searchable-flag>
+        <refinable-flag>false</refinable-flag>
+        <prevent-requalifying-flag>false</prevent-requalifying-flag>
+        <prorate-across-eligible-items-flag>false</prorate-across-eligible-items-flag>
+        <exclusivity>no</exclusivity>
+        <name xml:lang="x-default">Affiliate reward 10% off</name>
+        <callout-msg xml:lang="x-default">Affiliate reward: 10% off</callout-msg>
+        <order-promotion-rule>
+            <discounts condition-type="order-total">
+                <discount>
+                    <threshold>0.01</threshold>
+                    <percentage>10.0</percentage>
+                </discount>
+            </discounts>
+        </order-promotion-rule>
+    </promotion>
+    <promotion-campaign-assignment promotion-id="affiliate-reward-10" campaign-id="affiliate-rewards">
+        <qualifiers match-mode="any">
+            <coupons/>
+        </qualifiers>
+        <coupons>
+            <coupon coupon-id="affiliate-reward"/>
+        </coupons>
+    </promotion-campaign-assignment>
+</promotions>
