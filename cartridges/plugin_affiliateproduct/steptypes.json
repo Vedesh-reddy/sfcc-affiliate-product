@@ -1,0 +1,54 @@
+{
+  "step-types": {
+    "script-module-step": [
+      {
+        "@type-id": "custom.AffiliateProduct.ProcessRewards",
+        "@supports-parallel-execution": "false",
+        "@supports-site-context": "true",
+        "@supports-organization-context": "false",
+        "description": "Issue reward vouchers for delivered referral orders once the return window has passed",
+        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/processAffiliateRewards.js",
+        "function": "execute",
+        "transactional": "false",
+        "timeout-in-seconds": 900,
+        "parameters": {},
+        "status-codes": {
+          "status": [
+            {
+              "@code": "OK",
+              "description": "Complete"
+            },
+            {
+              "@code": "ERROR",
+              "description": "Partial failure; retry and inspect logs"
+            }
+          ]
+        }
+      },
+      {
+        "@type-id": "custom.AffiliateProduct.MaintainRewards",
+        "@supports-parallel-execution": "false",
+        "@supports-site-context": "true",
+        "@supports-organization-context": "false",
+        "description": "Retry reward emails, revoke rewards of returned or cancelled orders, expire vouchers and send expiry reminders",
+        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/maintainAffiliateRewards.js",
+        "function": "execute",
+        "transactional": "false",
+        "timeout-in-seconds": 900,
+        "parameters": {},
+        "status-codes": {
+          "status": [
+            {
+              "@code": "OK",
+              "description": "Complete"
+            },
+            {
+              "@code": "ERROR",
+              "description": "Partial failure; retry and inspect logs"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

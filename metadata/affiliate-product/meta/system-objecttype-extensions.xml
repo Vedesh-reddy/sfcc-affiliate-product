@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Product">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="affiliateExcluded">
+                <display-name xml:lang="x-default">Excluded from affiliate attribution</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateProduct">
+                <display-name xml:lang="x-default">Affiliate Product</display-name>
+                <attribute attribute-id="affiliateExcluded"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+    <type-extension type-id="Basket">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="affiliateCode">
+                <display-name xml:lang="x-default">Affiliate code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="affiliateSource">
+                <display-name xml:lang="x-default">Affiliate attribution source</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="affiliateOptOut">
+                <display-name xml:lang="x-default">Shopper removed the referral</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateProduct">
+                <display-name xml:lang="x-default">Affiliate Product</display-name>
+                <attribute attribute-id="affiliateCode"/>
+                <attribute attribute-id="affiliateSource"/>
+                <attribute attribute-id="affiliateOptOut"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+    <type-extension type-id="Order">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="affiliateCode">
+                <display-name xml:lang="x-default">Affiliate code</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="affiliateSource">
+                <display-name xml:lang="x-default">Affiliate attribution source</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateProduct">
+                <display-name xml:lang="x-default">Affiliate Product</display-name>
+                <attribute attribute-id="affiliateCode"/>
+                <attribute attribute-id="affiliateSource"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="AffiliateProgramEnabled">
+                <display-name xml:lang="x-default">Affiliate program enabled</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateRewardCouponID">
+                <display-name xml:lang="x-default">Reward coupon ID (system codes)</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateRewardPercent">
+                <display-name xml:lang="x-default">Reward percentage shown to shoppers</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>10</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateVoucherValidityDays">
+                <display-name xml:lang="x-default">Voucher validity in days</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>30</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateAttributionWindowDays">
+                <display-name xml:lang="x-default">Referral link attribution window in days</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>30</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateRewardDelayDays">
+                <display-name xml:lang="x-default">Return window after delivery before a reward is issued</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>7</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateMinimumOrderValue">
+                <display-name xml:lang="x-default">Minimum eligible order value</display-name>
+                <type>double</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>0</default-value>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliatePrepaidPaymentMethods">
+                <display-name xml:lang="x-default">Payment methods allowed for referred orders</display-name>
+                <type>set-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="AffiliateExpiryReminderDays">
+                <display-name xml:lang="x-default">Days before expiry to send a reminder</display-name>
+                <type>int</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <default-value>5</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="AffiliateProduct">
+                <display-name xml:lang="x-default">Affiliate Product</display-name>
+                <attribute attribute-id="AffiliateProgramEnabled"/>
+                <attribute attribute-id="AffiliateRewardCouponID"/>
+                <attribute attribute-id="AffiliateRewardPercent"/>
+                <attribute attribute-id="AffiliateVoucherValidityDays"/>
+                <attribute attribute-id="AffiliateAttributionWindowDays"/>
+                <attribute attribute-id="AffiliateRewardDelayDays"/>
+                <attribute attribute-id="AffiliateMinimumOrderValue"/>
+                <attribute attribute-id="AffiliatePrepaidPaymentMethods"/>
+                <attribute attribute-id="AffiliateExpiryReminderDays"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

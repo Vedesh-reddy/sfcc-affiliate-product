@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coupons xmlns="http://www.demandware.com/xml/impex/coupon/2008-06-17">
+    <coupon coupon-id="affiliate-reward">
+        <description>AffiliateX reward vouchers. One code per delivered referral order; single use.</description>
+        <enabled-flag>true</enabled-flag>
+        <case-insensitive>true</case-insensitive>
+        <redemption-limits>
+            <limit-per-code>1</limit-per-code>
+            <allow-multiple-codes-per-order>false</allow-multiple-codes-per-order>
+        </redemption-limits>
+        <system-codes>
+            <max-number-of-codes>100000</max-number-of-codes>
+            <code-prefix>AX10</code-prefix>
+        </system-codes>
+    </coupon>
+</coupons>
