@@ -1,0 +1,25 @@
+<div class="card affiliate-checkout-panel" data-affiliate-panel>
+    <div class="card-body">
+        <isif condition="${!!pdict.affiliateCheckout.code}">
+            <p class="mb-1">${Resource.msg('checkout.applied', 'affiliate', null)} <strong class="text-monospace font-monospace">${pdict.affiliateCheckout.code}</strong></p>
+            <p class="small text-muted mb-1">${Resource.msg('checkout.source.' + pdict.affiliateCheckout.source, 'affiliate', null)}</p>
+            <form class="affiliate-referral-form" action="${URLUtils.https('AffiliateReferral-Remove')}" method="post">
+                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                <button type="submit" class="btn btn-link p-0">${Resource.msg('checkout.remove', 'affiliate', null)}</button>
+            </form>
+            <p class="small text-muted mt-2 mb-0">${Resource.msg('checkout.conditions', 'affiliate', null)}</p>
+        <iselse/>
+            <details>
+                <summary class="font-weight-bold fw-bold">${Resource.msg('checkout.heading', 'affiliate', null)}</summary>
+                <p class="small mt-2">${Resource.msg('checkout.intro', 'affiliate', null)}</p>
+                <form class="affiliate-referral-form input-group" action="${URLUtils.https('AffiliateReferral-Apply')}" method="post">
+                    <label class="sr-only visually-hidden" for="affiliate-code-input">${Resource.msg('checkout.code.label', 'affiliate', null)}</label>
+                    <input id="affiliate-code-input" class="form-control text-monospace font-monospace text-uppercase" name="affiliateCode" maxlength="8" autocomplete="off" required/>
+                    <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                    <button type="submit" class="btn btn-outline-primary">${Resource.msg('checkout.apply', 'affiliate', null)}</button>
+                </form>
+            </details>
+        </isif>
+        <p class="affiliate-referral-message small text-danger mt-2 mb-0" role="alert"></p>
+    </div>
+</div>

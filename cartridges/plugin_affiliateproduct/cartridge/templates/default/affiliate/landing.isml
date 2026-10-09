@@ -1,0 +1,60 @@
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets');
+        assets.addJs('/js/affiliate.js');
+    </isscript>
+
+    <div class="container py-4">
+        <isinclude template="components/breadcrumbs/pageBreadcrumbs"/>
+
+        <p class="text-uppercase small font-weight-bold fw-bold mb-1">${Resource.msg('landing.eyebrow', 'affiliate', null)}</p>
+        <h1 class="h2">${Resource.msg('landing.heading', 'affiliate', null)}</h1>
+        <p class="lead">${Resource.msgf('landing.intro', 'affiliate', null, pdict.percent)}</p>
+
+        <ol class="list-unstyled row my-4">
+            <li class="col-md-4 mb-3">
+                <div class="card card-body h-100">
+                    <p class="h5">01 ${Resource.msg('landing.step.join', 'affiliate', null)}</p>
+                    <p class="mb-0">${Resource.msg('landing.step.join.text', 'affiliate', null)}</p>
+                </div>
+            </li>
+            <li class="col-md-4 mb-3">
+                <div class="card card-body h-100">
+                    <p class="h5">02 ${Resource.msg('landing.step.share', 'affiliate', null)}</p>
+                    <p class="mb-0">${Resource.msg('landing.step.share.text', 'affiliate', null)}</p>
+                </div>
+            </li>
+            <li class="col-md-4 mb-3">
+                <div class="card card-body h-100">
+                    <p class="h5">03 ${Resource.msg('landing.step.earn', 'affiliate', null)}</p>
+                    <p class="mb-0">${Resource.msgf('landing.step.earn.text', 'affiliate', null, pdict.percent, pdict.days)}</p>
+                </div>
+            </li>
+        </ol>
+
+        <div class="card">
+            <div class="card-body">
+                <isif condition="${!pdict.loggedIn}">
+                    <a class="btn btn-primary" href="${pdict.loginUrl}">${Resource.msg('landing.login', 'affiliate', null)}</a>
+                <iselseif condition="${pdict.suspended}">
+                    <p class="alert alert-warning mb-0" role="alert">${Resource.msg('landing.suspended', 'affiliate', null)}</p>
+                <iselseif condition="${!!pdict.code}">
+                    <p class="text-uppercase small font-weight-bold fw-bold mb-1">${Resource.msg('code.label', 'affiliate', null)}</p>
+                    <div class="d-flex flex-wrap align-items-center">
+                        <p id="affiliate-code" class="text-monospace font-monospace h2 font-weight-bold fw-bold mb-0 mr-3 me-3">${pdict.code}</p>
+                        <button type="button" class="btn btn-outline-primary mr-3 me-3" data-affiliate-copy="affiliate-code" data-done="${Resource.msg('copy.done', 'affiliate', null)}" data-failed="${Resource.msg('copy.failed', 'affiliate', null)}">${Resource.msg('copy', 'affiliate', null)}</button>
+                        <span class="affiliate-copy-status small" role="status" aria-live="polite"></span>
+                    </div>
+                    <a class="btn btn-primary mt-3" href="${URLUtils.https('Affiliate-Dashboard')}">${Resource.msg('landing.dashboard', 'affiliate', null)}</a>
+                <iselse/>
+                    <form action="${URLUtils.https('Affiliate-Generate')}" method="post">
+                        <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}"/>
+                        <button type="submit" class="btn btn-primary">${Resource.msg('landing.generate', 'affiliate', null)}</button>
+                    </form>
+                </isif>
+            </div>
+        </div>
+
+        <p class="small text-muted mt-3">${Resource.msg('landing.terms', 'affiliate', null)}</p>
+    </div>
+</isdecorate>
