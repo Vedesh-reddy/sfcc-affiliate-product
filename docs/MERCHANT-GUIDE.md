@@ -28,8 +28,8 @@ Set **Affiliate Product → `affiliateExcluded`** on a product to remove its Sha
 
 | Job | What to expect |
 | --- | --- |
-| `AffiliateProduct-ProcessRewards` | Handles up to 500 pending orders per run, oldest first. Status `ERROR` means at least one order failed; its error is in the `affiliate-product` log. |
-| `AffiliateProduct-MaintainRewards` | Handles up to 2,000 issued vouchers per run. |
+| `ProcessRewards` step of `AffiliateProduct-Job` | Handles up to 500 pending orders per run, oldest first. Status `ERROR` means at least one order failed; its error is in the `affiliate-product` log. |
+| `MaintainRewards` step of `AffiliateProduct-Job` | Handles up to 2,000 issued vouchers per run. |
 
 When the coupon runs out of codes, issuance fails with `AFFILIATE_COUPON_UNAVAILABLE` and orders stay pending. Raise the coupon's maximum number of codes.
 
