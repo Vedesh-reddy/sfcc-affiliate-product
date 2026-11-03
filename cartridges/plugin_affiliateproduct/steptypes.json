@@ -7,8 +7,8 @@
         "@supports-site-context": "true",
         "@supports-organization-context": "false",
         "description": "Issue reward vouchers for delivered referral orders once the return window has passed",
-        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/processAffiliateRewards.js",
-        "function": "execute",
+        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/jobSteps.js",
+        "function": "processRewards",
         "transactional": "false",
         "timeout-in-seconds": 900,
         "parameters": {},
@@ -31,8 +31,8 @@
         "@supports-site-context": "true",
         "@supports-organization-context": "false",
         "description": "Retry reward emails, revoke rewards of returned or cancelled orders, expire vouchers and send expiry reminders",
-        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/maintainAffiliateRewards.js",
-        "function": "execute",
+        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/jobSteps.js",
+        "function": "maintainRewards",
         "transactional": "false",
         "timeout-in-seconds": 900,
         "parameters": {},
@@ -45,6 +45,30 @@
             {
               "@code": "ERROR",
               "description": "Partial failure; retry and inspect logs"
+            }
+          ]
+        }
+      },
+      {
+        "@type-id": "custom.AffiliateProduct.ReportFailures",
+        "@supports-parallel-execution": "false",
+        "@supports-site-context": "true",
+        "@supports-organization-context": "false",
+        "description": "Fails the job when an earlier step failed, so Business Manager shows it",
+        "module": "plugin_affiliateproduct/cartridge/scripts/jobs/jobSteps.js",
+        "function": "reportFailures",
+        "transactional": "false",
+        "timeout-in-seconds": 60,
+        "parameters": {},
+        "status-codes": {
+          "status": [
+            {
+              "@code": "OK",
+              "description": "No failed steps"
+            },
+            {
+              "@code": "ERROR",
+              "description": "An earlier step failed; the message names it"
             }
           ]
         }

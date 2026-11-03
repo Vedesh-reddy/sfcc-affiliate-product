@@ -57,7 +57,7 @@ The archive `metadata/affiliate-product` contains:
 | --- | --- |
 | `meta/custom-objecttype-definitions.xml` | `AffiliateProfile`, `AffiliateCustomerIndex`, `AffiliateOrder`, `AffiliateReward`, `AffiliateDailyStats` |
 | `meta/system-objecttype-extensions.xml` | Product `affiliateExcluded`; Basket `affiliateCode`, `affiliateSource`, `affiliateOptOut`; Order `affiliateCode`, `affiliateSource`; the **Affiliate Product** site preferences |
-| `jobs.xml` | `AffiliateProduct-ProcessRewards`, `AffiliateProduct-MaintainRewards` |
+| `jobs.xml` | `ProcessRewards` step of `AffiliateProduct-Job`, `MaintainRewards` step of `AffiliateProduct-Job` |
 | `sites/RefArch/preferences.xml` | Program on, coupon ID `affiliate-reward` |
 | `sites/RefArch/coupons.xml` | Coupon `affiliate-reward`: system codes, prefix `AX10`, case-insensitive, 1 redemption per code, no multiple codes per order |
 | `sites/RefArch/promotions.xml` | Campaign `affiliate-rewards`, promotion `affiliate-reward-10` (10% off the order), coupon-qualified |
@@ -82,14 +82,14 @@ To discount products instead of the order, or to cap the discount, edit the prom
 
 | Job | Schedule | Purpose |
 | --- | --- | --- |
-| `AffiliateProduct-ProcessRewards` | Every 30 minutes | Records delivery, waits out the return window, issues vouchers |
-| `AffiliateProduct-MaintainRewards` | Daily | Revokes, expires, retries emails, sends expiry reminders |
+| `ProcessRewards` step of `AffiliateProduct-Job` | Every 30 minutes | Records delivery, waits out the return window, issues vouchers |
+| `MaintainRewards` step of `AffiliateProduct-Job` | Daily | Revokes, expires, retries emails, sends expiry reminders |
 
 ## 7. Check
 
 1. Open `Affiliate-Show`, sign in and generate a code.
 2. Open an eligible product: the Share & Earn link appears.
 3. Open that link in a private window, add to cart and check out: the order summary shows the referral.
-4. Set the order to Paid and its shipment to Shipped, then run `AffiliateProduct-ProcessRewards`:
+4. Set the order to Paid and its shipment to Shipped, then run `ProcessRewards` step of `AffiliateProduct-Job`:
    - the first run records delivery;
    - after `AffiliateRewardDelayDays`, a later run issues the voucher.

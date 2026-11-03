@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jobs xmlns="http://www.demandware.com/xml/impex/jobs/2015-07-01">
-    <job job-id="AffiliateProduct-ProcessRewards" priority="0"><description>Issue affiliate reward vouchers; schedule every 30 minutes after configuration.</description><parameters/><flow><context site-id="RefArch"/><step step-id="ProcessRewards" type="custom.AffiliateProduct.ProcessRewards" enforce-restart="false"><parameters/></step></flow><rules/><triggers/></job>
-    <job job-id="AffiliateProduct-MaintainRewards" priority="0"><description>Expire, revoke and remind affiliate reward vouchers; schedule daily after configuration.</description><parameters/><flow><context site-id="RefArch"/><step step-id="MaintainRewards" type="custom.AffiliateProduct.MaintainRewards" enforce-restart="false"><parameters/></step></flow><rules/><triggers/></job>
+    <job job-id="AffiliateProduct-Job">
+        <description>All affiliate reward tasks. Runs every 30 minutes.</description>
+        <parameters/>
+        <flow>
+            <context site-id="RefArch"/>
+            <step step-id="ProcessRewards" type="custom.AffiliateProduct.ProcessRewards" enforce-restart="false">
+                <description>Issue reward vouchers for delivered referral orders once the return window has passed</description>
+                <parameters/>
+                <rules>
+                    <on-exit status="ERROR">
+                        <continue/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="MaintainRewards" type="custom.AffiliateProduct.MaintainRewards" enforce-restart="false">
+                <description>Retry reward emails, revoke rewards of returned or cancelled orders, expire vouchers and send expiry reminders</description>
+                <parameters/>
+                <rules>
+                    <on-exit status="ERROR">
+                        <continue/>
+                    </on-exit>
+                </rules>
+            </step>
+            <step step-id="ReportFailures" type="custom.AffiliateProduct.ReportFailures" enforce-restart="false">
+                <description>Fails the job when an earlier step failed, so Business Manager shows it</description>
+                <parameters/>
+                <rules>
+                    <on-exit status="ERROR">
+                        <stop-job/>
+                    </on-exit>
+                </rules>
+            </step>
+        </flow>
+        <rules/>
+        <triggers>
+            <run-recurring enabled="false">
+                <recurrence>
+                    <date-from>2026-01-01Z</date-from>
+                    <start-time>00:00:00.000Z</start-time>
+                    <interval>30m</interval>
+                    <day-of-week>
+                        <weekday>Monday</weekday>
+                        <weekday>Tuesday</weekday>
+                        <weekday>Wednesday</weekday>
+                        <weekday>Thursday</weekday>
+                        <weekday>Friday</weekday>
+                        <weekday>Saturday</weekday>
+                        <weekday>Sunday</weekday>
+                    </day-of-week>
+                </recurrence>
+            </run-recurring>
+        </triggers>
+    </job>
 </jobs>

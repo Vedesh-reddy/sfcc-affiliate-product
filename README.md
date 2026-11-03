@@ -46,7 +46,7 @@ npm run package:metadata
 2. **Deploy:** upload `cartridges/plugin_affiliateproduct`, including the generated `cartridge/static`, to your code version.
 3. **Activate:** put `plugin_affiliateproduct` first on the storefront cartridge path.
 4. **Import:** rename `metadata/affiliate-product/sites/RefArch` and the job `site-id` to your site, rebuild the ZIP and import `dist/affiliate-product-metadata.zip`.
-5. **Configure:** add the footer link and schedule the two jobs.
+5. **Configure:** add the footer link and schedule `AffiliateProduct-Job`.
 
 ```text
 plugin_affiliateproduct:app_storefront_base
@@ -63,10 +63,10 @@ The [installation guide](docs/INSTALLATION.md) covers each step.
 | 3 | [Referral link tracking](#3-referral-link-tracking) | `?aff=CODE` product links | `AffiliateDailyStats`, cookie `affiliate-ref` | — |
 | 4 | [Referral code at checkout](#4-referral-code-at-checkout) | Order summary panel | Basket and order attributes | — |
 | 5 | [Prepaid-only referred orders](#5-prepaid-only-referred-orders) | Place order | — | — |
-| 6 | [Reward engine](#6-reward-engine) | — | `AffiliateOrder`, `AffiliateReward` | `AffiliateProduct-ProcessRewards` |
+| 6 | [Reward engine](#6-reward-engine) | — | `AffiliateOrder`, `AffiliateReward` | `ProcessRewards` step of `AffiliateProduct-Job` |
 | 7 | [Voucher security and redemption](#7-voucher-security-and-redemption) | Cart promo code | `AffiliateReward`, native coupon | — |
 | 8 | [Affiliate dashboard](#8-affiliate-dashboard) | `Affiliate-Dashboard` | All of the above | — |
-| 9 | [Voucher lifecycle](#9-voucher-lifecycle) | Email | `AffiliateReward` | `AffiliateProduct-MaintainRewards` |
+| 9 | [Voucher lifecycle](#9-voucher-lifecycle) | Email | `AffiliateReward` | `MaintainRewards` step of `AffiliateProduct-Job` |
 
 ---
 
@@ -176,7 +176,7 @@ Captured with the preference temporarily set to `COD`, so the card counted as no
 
 ### 6. Reward engine
 
-**What it does.** `AffiliateProduct-ProcessRewards` (every 30 minutes) moves each pending referral order forward:
+**What it does.** `ProcessRewards` step of `AffiliateProduct-Job` (every 30 minutes) moves each pending referral order forward:
 
 | Order state | Result |
 | --- | --- |
@@ -243,7 +243,7 @@ Before any referral:
 
 ### 9. Voucher lifecycle
 
-`AffiliateProduct-MaintainRewards` (daily) handles issued vouchers:
+`MaintainRewards` step of `AffiliateProduct-Job` (daily) handles issued vouchers:
 
 - revokes them when the source order was cancelled or has a return case;
 - expires them after `expiresAt`;
@@ -253,6 +253,12 @@ Before any referral:
 A voucher that was already redeemed is not clawed back when its source order is returned later. This path is covered by unit tests, not screenshots.
 
 ---
+
+## Background job
+
+All background work runs in one Business Manager job, `AffiliateProduct-Job`, with its steps in order. A failing step doesn't stop the next one, and the last step, `ReportFailures`, then marks the job `ERROR`.
+
+Upgrading from a version with several jobs? Import `metadata/retired-jobs/jobs.xml` once to delete the old ones.
 
 ## Documentation
 
